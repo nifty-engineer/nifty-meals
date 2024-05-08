@@ -24,10 +24,12 @@ As a user, I should be able to view the home page on the endpoint GET <secure-ur
 ## 3: Establish secure communication on the application
 As a user, I should be able to have a secure communication on the app in order to encrypt data between the web browser and the application server
 ### Features:
-- Generate key and self-signed certificate
+- Generate key and self-signed certificate for the backend
+- Set up a frontend app
+- Generate key and self-signed certificate for the frontend
 - Create a .env file
-- Set up the backend app to use the secure url
 - Run the frontend app with the key and certificate
+- Set up the backend app to use the secure url
 
 ## 4: Establish authentication and authorization in the app
 As a user, I should be able to restrict access to some resources in the application. This would encourage guests to become a member in order to gain access resources, other than viewing
