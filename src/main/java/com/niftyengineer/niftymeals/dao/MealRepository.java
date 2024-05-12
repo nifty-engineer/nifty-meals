@@ -10,4 +10,5 @@ public interface MealRepository extends JpaRepository<Meal, Long> {
 
     Page<Meal> findByTitleContaining(@RequestParam("title") String title, Pageable pageable);
 
+    Page<Meal> findByCategory(@RequestParam("category") String category, Pageable pageable);
 }
