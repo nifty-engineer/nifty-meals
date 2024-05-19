@@ -24,7 +24,7 @@ public class Meal {
     private int quantity;
 
     @Column(name = "quantity_available")
-    private int quantity_available;
+    private int quantityAvailable;
 
     @Column(name = "category")
     private String category;

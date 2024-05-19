@@ -11,7 +11,7 @@ create table `meal` (
   quantity int(11) default null,
   quantity_available int(11) default null,
   category varchar(11) default null,
-  img mediumblob default null,
+  img longblob default null,
   primary key (id)
 );
 
@@ -71,7 +71,7 @@ insert into meal values (
 ),
 (
  7,
- 'Sausages with warm red cabbage &amp; beetroot slaw',
+ 'Sausages with warm red cabbage and beetroot slaw',
  'Beetroot water spinach okra water chestnut ricebean pea catsear courgette summer purslane. Water spinach arugula pea tatsoi aubergine spring onion bush tomato kale radicchio turnip chicory salsify pea sprouts fava bean. Dandelion zucchini burdock yarrow chickpea dandelion sorrel courgette turnip greens tigernut soybean radish artichoke wattle seed endive groundnut broccoli arugula.',
  20,
  20,
