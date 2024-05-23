@@ -20,11 +20,8 @@ public class Meal {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "quantity")
-    private int quantity;
-
-    @Column(name = "quantity_available")
-    private int quantityAvailable;
+    @Column(name = "count")
+    private int count;
 
     @Column(name = "category")
     private String category;

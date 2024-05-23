@@ -132,7 +132,9 @@ CREATE TABLE `checkout` (
   PRIMARY KEY (`id`)
 );
 
--- INSERT INTO `checkout` VALUES
---  (1, 'example1user@email.com', '2022-05-22', 1),
---  (2, 'example2user@email.com', '2022-05-22', 1),
---  (3, 'example1user@email.com', '2022-05-22', 2);
+INSERT INTO `checkout` VALUES
+ (1, 'example1user@email.com', '2022-05-22', 1),
+ (2, 'example2user@email.com', '2022-05-22', 1),
+ (3, 'example1user@email.com', '2022-05-22', 2);
+
+select * from niftymealsdb.meal;

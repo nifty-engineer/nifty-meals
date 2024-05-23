@@ -35,11 +35,11 @@ public class MealService {
             throw new Exception("Meal doesn't exist");
         } else if (validateCheckout != null) {
             throw new Exception("Meal has already been checked out");
-        } else if (meal.get().getQuantityAvailable() <= 0) {
+        } else if (meal.get().getCount() <= 0) {
             throw new Exception("Meal is currently out of stock");
         }
 
-        meal.get().setQuantityAvailable(meal.get().getQuantityAvailable() - 1);
+        meal.get().setCount(meal.get().getCount() - 1);
         mealRepository.save(meal.get());
 
         Checkout checkout = new Checkout(
