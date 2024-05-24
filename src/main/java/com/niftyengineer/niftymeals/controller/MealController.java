@@ -26,7 +26,6 @@ public class MealController {
     public Boolean checkoutMealByUser(@RequestHeader(value = "Authorization") String token,
                                       @RequestParam Long mealId) {
         String userEmail = JWTExtraction.extractJWTPayload(token, "\"sub\"");
-        System.out.println(userEmail);
         return mealService.isMealCheckedoutByUser(userEmail, mealId);
     }
 
