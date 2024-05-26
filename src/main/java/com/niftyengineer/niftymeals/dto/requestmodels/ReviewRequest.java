@@ -1,11 +1,11 @@
-package com.niftyengineer.niftymeals.dto;
+package com.niftyengineer.niftymeals.dto.requestmodels;
 
 import lombok.Data;
 
 import java.util.Optional;
 
 @Data
-public class ReviewRequestDto {
+public class ReviewRequest {
 
     private double rating;
 

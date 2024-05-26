@@ -1,7 +1,7 @@
 package com.niftyengineer.niftymeals.service;
 
 import com.niftyengineer.niftymeals.dao.ReviewRepository;
-import com.niftyengineer.niftymeals.dto.ReviewRequestDto;
+import com.niftyengineer.niftymeals.dto.requestmodels.ReviewRequest;
 import com.niftyengineer.niftymeals.entity.Review;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,18 +21,18 @@ public class ReviewService {
         this.reviewRepository = reviewRepository;
     }
 
-    public void postReview(String userEmail, ReviewRequestDto reviewRequestDto) throws Exception {
-        Review validateReview = reviewRepository.findByUserEmailAndMealId(userEmail, reviewRequestDto.getMealId());
+    public void postReview(String userEmail, ReviewRequest reviewRequest) throws Exception {
+        Review validateReview = reviewRepository.findByUserEmailAndMealId(userEmail, reviewRequest.getMealId());
         if (validateReview != null) {
             throw new Exception("Review already created");
         }
 
         Review review = new Review();
-        review.setMealId(reviewRequestDto.getMealId());
-        review.setRating(reviewRequestDto.getRating());
+        review.setMealId(reviewRequest.getMealId());
+        review.setRating(reviewRequest.getRating());
         review.setUserEmail(userEmail);
-        if (reviewRequestDto.getReviewDescription().isPresent()) {
-            review.setReviewDescription(reviewRequestDto.getReviewDescription().map(
+        if (reviewRequest.getReviewDescription().isPresent()) {
+            review.setReviewDescription(reviewRequest.getReviewDescription().map(
               Object::toString
             ).orElse(null));
         }

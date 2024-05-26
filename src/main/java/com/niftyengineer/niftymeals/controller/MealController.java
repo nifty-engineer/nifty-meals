@@ -1,9 +1,12 @@
 package com.niftyengineer.niftymeals.controller;
 
+import com.niftyengineer.niftymeals.dto.responsemodels.CurrentCheckoutsResponse;
 import com.niftyengineer.niftymeals.entity.Meal;
 import com.niftyengineer.niftymeals.service.MealService;
 import com.niftyengineer.niftymeals.utils.JWTExtraction;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @CrossOrigin("http://localhost:3000")
 @RestController
@@ -14,6 +17,14 @@ public class MealController {
 
     public MealController(MealService mealService) {
         this.mealService = mealService;
+    }
+
+    @GetMapping("/member/currentcheckouts")
+    public List<CurrentCheckoutsResponse> currentCheckouts(@RequestHeader(value = "Authorization") String token)
+      throws Exception
+    {
+        String userEmail = JWTExtraction.extractJWTPayload(token, "\"sub\"");
+        return mealService.currentCheckouts(userEmail);
     }
 
     @GetMapping("/member/currentcheckouts/count")
