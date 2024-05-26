@@ -102,4 +102,20 @@ public class MealService {
         }
         return currentCheckoutsResponses;
     }
+
+    public void removeMeal (String userEmail, Long mealId) throws Exception {
+
+        Optional<Meal> meal = mealRepository.findById(mealId);
+
+        Checkout validateCheckout = checkoutRepository.findByUserEmailAndMealId(userEmail, mealId);
+
+        if (!meal.isPresent() || validateCheckout == null) {
+            throw new Exception("Meal does not exist or not checked out by user");
+        }
+
+        meal.get().setCount(meal.get().getCount() + 1);
+
+        mealRepository.save(meal.get());
+        checkoutRepository.deleteById(validateCheckout.getId());
+    }
 }

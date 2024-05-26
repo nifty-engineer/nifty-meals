@@ -46,4 +46,11 @@ public class MealController {
         String userEmail = JWTExtraction.extractJWTPayload(token, "\"sub\"");
         return mealService.checkoutMeal(userEmail, mealId);
     }
+
+    @PutMapping("/member/remove")
+    public void removeMeal(@RequestHeader(value = "Authorization") String token,
+                           @RequestParam("id") Long mealId) throws Exception {
+        String userEmail = JWTExtraction.extractJWTPayload(token, "\"sub\"");
+        mealService.removeMeal(userEmail, mealId);
+    }
 }
