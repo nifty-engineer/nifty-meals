@@ -1,6 +1,6 @@
 package com.niftyengineer.niftymeals.service;
 
-import com.niftyengineer.niftymeals.dao.CheckoutRepository;
+import com.niftyengineer.niftymeals.dao.CurrentCheckoutsRepository;
 import com.niftyengineer.niftymeals.dao.MealRepository;
 import com.niftyengineer.niftymeals.dto.responsemodels.CurrentCheckoutsResponse;
 import com.niftyengineer.niftymeals.entity.Checkout;
@@ -23,19 +23,19 @@ public class MealService {
 
     private MealRepository mealRepository;
 
-    private CheckoutRepository checkoutRepository;
+    private CurrentCheckoutsRepository currentCheckoutsRepository;
 
     @Autowired
-    public MealService(MealRepository mealRepository, CheckoutRepository checkoutRepository) {
+    public MealService(MealRepository mealRepository, CurrentCheckoutsRepository currentCheckoutsRepository) {
         this.mealRepository = mealRepository;
-        this.checkoutRepository = checkoutRepository;
+        this.currentCheckoutsRepository = currentCheckoutsRepository;
     }
 
     public Meal checkoutMeal (String userEmail, Long mealId) throws Exception {
 
         Optional<Meal> meal = mealRepository.findById(mealId);
 
-        Checkout validateCheckout = checkoutRepository.findByUserEmailAndMealId(userEmail, mealId);
+        Checkout validateCheckout = currentCheckoutsRepository.findByUserEmailAndMealId(userEmail, mealId);
 
         if (meal.isEmpty()) {
             throw new Exception("Meal doesn't exist");
@@ -54,25 +54,25 @@ public class MealService {
           meal.get().getId()
         );
 
-        checkoutRepository.save(checkout);
+        currentCheckoutsRepository.save(checkout);
 
         return meal.get();
     }
 
     public Boolean isMealCheckedoutByUser(String userEmail, Long mealId) {
-        Checkout validateCheckout = checkoutRepository.findByUserEmailAndMealId(userEmail, mealId);
+        Checkout validateCheckout = currentCheckoutsRepository.findByUserEmailAndMealId(userEmail, mealId);
         return validateCheckout != null;
     }
 
     public int countCurrentCheckoutsByUser(String userEmail) {
-        return checkoutRepository.findMealsByUserEmail(userEmail).size();
+        return currentCheckoutsRepository.findMealsByUserEmail(userEmail).size();
     }
 
     public List<CurrentCheckoutsResponse> currentCheckouts(String userEmail) throws Exception {
 
         List<CurrentCheckoutsResponse> currentCheckoutsResponses = new ArrayList<>();
 
-        List<Checkout> checkoutList = checkoutRepository.findMealsByUserEmail(userEmail);
+        List<Checkout> checkoutList = currentCheckoutsRepository.findMealsByUserEmail(userEmail);
         List<Long> mealIdList = new ArrayList<>();
 
         for (Checkout checkout: checkoutList) {
@@ -107,7 +107,7 @@ public class MealService {
 
         Optional<Meal> meal = mealRepository.findById(mealId);
 
-        Checkout validateCheckout = checkoutRepository.findByUserEmailAndMealId(userEmail, mealId);
+        Checkout validateCheckout = currentCheckoutsRepository.findByUserEmailAndMealId(userEmail, mealId);
 
         if (!meal.isPresent() || validateCheckout == null) {
             throw new Exception("Meal does not exist or not checked out by user");
@@ -116,6 +116,6 @@ public class MealService {
         meal.get().setCount(meal.get().getCount() + 1);
 
         mealRepository.save(meal.get());
-        checkoutRepository.deleteById(validateCheckout.getId());
+        currentCheckoutsRepository.deleteById(validateCheckout.getId());
     }
 }
