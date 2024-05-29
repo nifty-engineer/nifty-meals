@@ -1,6 +1,8 @@
 package com.niftyengineer.niftymeals.config;
 
 import com.niftyengineer.niftymeals.entity.Meal;
+import com.niftyengineer.niftymeals.entity.Message;
+import com.niftyengineer.niftymeals.entity.Review;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
@@ -22,6 +24,8 @@ public class MyDataRestConfig implements RepositoryRestConfigurer {
         };
 
         config.exposeIdsFor(Meal.class);
+        config.exposeIdsFor(Review.class);
+        config.exposeIdsFor(Message.class);
 
         disableHttpMethods(Meal.class, config, theUnsupportedActions);
 
