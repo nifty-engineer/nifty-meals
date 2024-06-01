@@ -5,6 +5,7 @@ import com.niftyengineer.niftymeals.dto.CredentialsDto;
 import com.niftyengineer.niftymeals.dto.SignUpDto;
 import com.niftyengineer.niftymeals.dto.UserDto;
 import com.niftyengineer.niftymeals.entity.User;
+import com.niftyengineer.niftymeals.enums.Role;
 import com.niftyengineer.niftymeals.exception.AppException;
 import com.niftyengineer.niftymeals.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
@@ -43,6 +44,7 @@ public class UserService {
         }
 
         User user = userMapper.signUpToUser(userDto);
+        user.setRole(Role.MEMBER);
         // hash password
         user.setPassword(passwordEncoder.encode(CharBuffer.wrap(userDto.getPassword())));
 
@@ -56,5 +58,4 @@ public class UserService {
           .orElseThrow(() -> new AppException("Unknown user", HttpStatus.NOT_FOUND));
         return userMapper.toUserDto(user);
     }
-
 }

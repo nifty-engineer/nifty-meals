@@ -1,5 +1,6 @@
 package com.niftyengineer.niftymeals.entity;
 
+import com.niftyengineer.niftymeals.enums.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,4 +24,8 @@ public class User {
 
     @Column(nullable = false)
     private String password;
+
+    @Enumerated(EnumType.STRING)
+    @Column()
+    private Role role;
 }

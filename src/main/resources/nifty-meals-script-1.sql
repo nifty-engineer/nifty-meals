@@ -157,6 +157,20 @@ CREATE TABLE `messages` (
   PRIMARY KEY (`id`)
 );
 
- 
+ drop table if exists `users`;
 
-select * from niftymealsdb.meal;
+ create table `users` (
+   `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+   `user_email` varchar(45) DEFAULT NULL,
+   `password` varchar(200) DEFAULT NULL,
+   `role` ENUM('ADMIN', 'MEMBER') DEFAULT NULL,
+   PRIMARY KEY (`id`)
+  );
+
+ insert into `users`values
+ (1, 'admin@email.com', '$2a$12$PuaEQT6BTFfZMxBWMbwbOOetowmIGo83FVBBR8Bq48OHNyxPWMGXG', 'ADMIN'),
+ (2, 'member2@email.com', '$2a$12$pLMW62YdILIoTXVJ6r5gaeXCqabNlfrzZpeMxxawDMzs9MItLGBqW', 'MEMBER');
+
+
+--select * from `users`;
+--select * from niftymealsdb.meal;

@@ -8,10 +8,7 @@ import com.niftyengineer.niftymeals.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 
@@ -27,7 +24,7 @@ public class AuthnController {
     public ResponseEntity<UserDto> login(@RequestBody @Valid CredentialsDto credentialsDto) {
         UserDto userDto = userService.login(credentialsDto);
         // returns a fresh jwt
-        userDto.setToken(userAuthnProvider.createToken(userDto.getUserEmail()));
+        userDto.setToken(userAuthnProvider.createToken(userDto));
         return ResponseEntity.ok(userDto);
     }
 
@@ -35,9 +32,8 @@ public class AuthnController {
     public ResponseEntity<UserDto> register(@RequestBody @Valid SignUpDto user) {
         UserDto newUser = userService.register(user);
         // returns a fresh jwt
-        newUser.setToken(userAuthnProvider.createToken(user.getUserEmail()));
+        newUser.setToken(userAuthnProvider.createToken(newUser));
         // returns 201 with a url link to the new entity
         return ResponseEntity.created(URI.create("/users/" + newUser.getId())).body(newUser);
     }
-
 }

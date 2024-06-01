@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -13,6 +14,7 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 
 @RequiredArgsConstructor
 @Configuration
+@EnableMethodSecurity
 public class SecurityConfig {
 
     private final UserAuthnEntryPoint userAuthnEntryPoint;
@@ -31,12 +33,13 @@ public class SecurityConfig {
             httpSecuritySessionManagementConfigurer
               .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
           .authorizeHttpRequests(requests ->
-            requests
+              requests
 //              .requestMatchers(HttpMethod.POST, "/api/register", "/api/login").permitAll()
-              .requestMatchers("/api/meals/member/**", "/api/reviews/member/**", "/api/messages/member/**")
-              .authenticated()
-              .anyRequest()
-              .permitAll()
+                .requestMatchers("/api/meals/member/**", "/api/reviews/member/**",
+                  "/api/messages/member/**", "/api/admin/secure/**")
+                .authenticated()
+                .anyRequest()
+                .permitAll()
           )
           .addFilterBefore(new JwtAuthFilter(userAuthnProvider), BasicAuthenticationFilter.class);
         return http.build();
