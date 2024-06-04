@@ -174,3 +174,5 @@ CREATE TABLE `messages` (
 
 --select * from `users`;
 --select * from niftymealsdb.meal;
+--select * from `checkouthistory` ch;
+
