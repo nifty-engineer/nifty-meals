@@ -2,11 +2,12 @@ package com.niftyengineer.niftymeals.service;
 
 import com.niftyengineer.niftymeals.dao.CurrentCheckoutsRepository;
 import com.niftyengineer.niftymeals.dao.MealRepository;
+import com.niftyengineer.niftymeals.dao.PaymentRepository;
 import com.niftyengineer.niftymeals.dao.UserCheckoutHistoryRepository;
 import com.niftyengineer.niftymeals.dto.responsemodels.CurrentCheckoutsResponse;
 import com.niftyengineer.niftymeals.entity.Checkout;
 import com.niftyengineer.niftymeals.entity.Meal;
-import com.niftyengineer.niftymeals.entity.UserCheckoutHistory;
+import com.niftyengineer.niftymeals.entity.Payment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,12 +30,16 @@ public class MealService {
 
     private UserCheckoutHistoryRepository userCheckoutHistoryRepository;
 
+    private PaymentRepository paymentRepository;
+
     @Autowired
     public MealService(MealRepository mealRepository, CurrentCheckoutsRepository currentCheckoutsRepository,
-                       UserCheckoutHistoryRepository userCheckoutHistoryRepository) {
+                       UserCheckoutHistoryRepository userCheckoutHistoryRepository,
+                       PaymentRepository paymentRepository) {
         this.mealRepository = mealRepository;
         this.currentCheckoutsRepository = currentCheckoutsRepository;
         this.userCheckoutHistoryRepository = userCheckoutHistoryRepository;
+        this.paymentRepository = paymentRepository;
     }
 
     public Meal checkoutMeal (String userEmail, Long mealId) throws Exception {
@@ -51,6 +56,17 @@ public class MealService {
             throw new Exception("Meal is currently out of stock");
         }
 
+        Payment payment = new Payment();
+        payment.setUserEmail(userEmail);
+        String category = meal.get().getCategory();
+        switch (category) {
+            case "breakfast" -> payment.setAmount(8.88);
+            case "lunch" -> payment.setAmount(9.99);
+            case "dinner" -> payment.setAmount(10.10);
+            default -> throw new Exception("Unrecognized meal category. Please explore our top meals");
+        }
+        paymentRepository.save(payment);
+
         meal.get().setCount(meal.get().getCount() - 1);
         mealRepository.save(meal.get());
 
@@ -59,18 +75,8 @@ public class MealService {
           LocalDate.now().toString(),
           meal.get().getId()
         );
-
+        checkout.setPayment(payment);
         currentCheckoutsRepository.save(checkout);
-
-        UserCheckoutHistory history = new UserCheckoutHistory(
-          userEmail,
-          checkout.getCheckoutDate(),
-          meal.get().getTitle(),
-          meal.get().getDescription(),
-          meal.get().getImg()
-        );
-
-        userCheckoutHistoryRepository.save(history);
 
         return meal.get();
     }
@@ -91,7 +97,7 @@ public class MealService {
         List<Checkout> checkoutList = currentCheckoutsRepository.findMealsByUserEmail(userEmail);
         List<Long> mealIdList = new ArrayList<>();
 
-        for (Checkout checkout: checkoutList) {
+        for (Checkout checkout : checkoutList) {
             mealIdList.add(checkout.getMealId());
         }
 

@@ -29,4 +29,7 @@ public class Checkout {
 
     @Column(name = "meal_id")
     private Long mealId;
+
+    @OneToOne(mappedBy = "checkout")
+    private Payment payment;
 }
