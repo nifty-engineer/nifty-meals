@@ -75,7 +75,6 @@ public class MealService {
           LocalDate.now().toString(),
           meal.get().getId()
         );
-        checkout.setPayment(payment);
         currentCheckoutsRepository.save(checkout);
 
         return meal.get();

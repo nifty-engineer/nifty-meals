@@ -4,8 +4,6 @@ package com.niftyengineer.niftymeals.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.util.List;
-
 @Entity
 @Table(name = "recipe")
 @Data
@@ -28,12 +26,6 @@ public class Recipe {
     @Column(name = "directions")
     private String directions;
 
-    @OneToOne
-    @MapsId
-    @JoinColumn(name = "meal_id")
-    private Meal meal;
-
-    @OneToMany(mappedBy="recipe")
-    private List<Ingredient> ingredients;
-
+    @Column(name = "meal_id")
+    private Long mealId;
 }

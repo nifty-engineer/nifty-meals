@@ -19,7 +19,6 @@ public class Payment {
     @Column(name = "amount")
     private double amount;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fk_checkout_id", referencedColumnName = "id")
-    private Checkout checkout;
+    @Column(name = "checkout_id")
+    private Long checkoutId;
 }

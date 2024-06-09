@@ -98,18 +98,15 @@ insert into meal values (
 DROP TABLE IF EXISTS `recipe`;
 
 create table `recipe` (
-  `recipe_id` BIGINT(20) NOT NULL,
+  id bigint(20) not null primary key auto_increment,
   servings int(1) default null,
   prep_time int(1) default null,
   cooking_time int(1) default null,
   directions text default null,
-  `meal_id` BIGINT(20) DEFAULT NULL,
-  primary key (recipe_id),
-  foreign key(meal_id) references meal(id)
-  	on delete CASCADE
+  `meal_id` BIGINT(20) DEFAULT NULL
 );
 
-insert into `recipe`(recipe_id, servings, prep_time, cooking_time, directions,  meal_id)
+insert into `recipe`(id, servings, prep_time, cooking_time, directions,  meal_id)
 values
 (1, 2, 15, 30, 'Ice cream pudding biscuit lemon drops chupa chups fruitcake lollipop cookie gummies. Cotton candy chocolate cake donut gummi bears candy dessert macaroon lollipop chupa chups. Topping cookie gingerbread chocolate cake cheesecake apple pie jujubes carrot cake. Icing pie chupa chups bonbon shortbread jujubes chocolate cake jelly. Caramels icing cotton candy donut gummies cake gummi bears pudding.', 1),
 (2, 2, 10, 15, 'Celery potato scallion desert raisin horseradish spinach carrot soko. Lotus root water spinach fennel kombu maize bamboo shoot green bean swiss chard seakale pumpkin onion chickpea gram corn pea. Brussels sprout coriander water chestnut gourd swiss chard wakame kohlrabi beetroot carrot watercress.', 2),
@@ -149,9 +146,7 @@ create table `ingredients` (
 	quantity double default null,
 	unit varchar(15) default null,
 	description varchar(20) default null,
-	recipe_id bigint(20) default null,
-	foreign key(recipe_id) references recipe(recipe_id)
-	on delete CASCADE
+	recipe_id bigint(20) default null
 );
 
 insert into `ingredients` (quantity, unit, description, recipe_id)

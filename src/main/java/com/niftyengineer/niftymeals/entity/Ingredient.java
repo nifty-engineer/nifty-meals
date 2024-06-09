@@ -22,7 +22,6 @@ public class Ingredient {
     @Column(name = "description")
     private String description;
 
-    @ManyToOne
-    @JoinColumn(name="recipe_id", nullable=false)
-    private Recipe recipe;
+    @Column(name = "recipe_id")
+    private Long recipeId;
 }
