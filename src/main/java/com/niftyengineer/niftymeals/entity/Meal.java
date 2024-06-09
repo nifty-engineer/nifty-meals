@@ -1,6 +1,5 @@
 package com.niftyengineer.niftymeals.entity;
 
-
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -28,4 +27,8 @@ public class Meal {
 
     @Column(name = "img")
     private String img;
+
+    @OneToOne(mappedBy = "meal", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private Recipe recipe;
 }
