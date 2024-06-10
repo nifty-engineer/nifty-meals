@@ -22,6 +22,6 @@ public class Ingredient {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "recipe_id")
-    private Long recipeId;
+    @Column(name = "meal_id")
+    private Long mealId;
 }
