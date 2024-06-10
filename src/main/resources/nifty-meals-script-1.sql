@@ -6,13 +6,15 @@ drop table if exists `meal`;
 
 create table `meal` (
   id bigint(20) not null auto_increment,
-  title varchar(100) default null,
+  title varchar(100) unique null,
   `description` text default null,
   count int(11) default null,
   category varchar(11) default null,
   img longblob default null,
   primary key (id)
 );
+
+select * from meal m ;
 
 insert into meal values (
   1,
@@ -106,6 +108,8 @@ create table `recipe` (
   `meal_id` BIGINT(20) DEFAULT NULL
 );
 
+select * from recipe r ;
+
 insert into `recipe`(id, servings, prep_time, cooking_time, directions,  meal_id)
 values
 (1, 2, 15, 30, 'Ice cream pudding biscuit lemon drops chupa chups fruitcake lollipop cookie gummies. Cotton candy chocolate cake donut gummi bears candy dessert macaroon lollipop chupa chups. Topping cookie gingerbread chocolate cake cheesecake apple pie jujubes carrot cake. Icing pie chupa chups bonbon shortbread jujubes chocolate cake jelly. Caramels icing cotton candy donut gummies cake gummi bears pudding.', 1),
@@ -146,41 +150,42 @@ create table `ingredients` (
 	quantity double default null,
 	unit varchar(15) default null,
 	description varchar(20) default null,
-	recipe_id bigint(20) default null
+	meal_id bigint(20) default null
 );
+-- select * from ingredients i ;
 
-insert into `ingredients` (quantity, unit, description, recipe_id)
+insert into `ingredients` (quantity, unit, description, meal_id)
 values
-(5, 'pounds', 'sdsldksl', 1 ), (3, 'tbsps', 'lskdsld', 1), (0.33, 'cups', 'sldks', 1), (2, 'tsp', 'sldks', 1), (7, 'oz', 'lskdsl', 1), (8, '', 'kslds', 1), (9, 'g', 'sldksldks', 1), (10, 'slices', 'dsldksl', 1),
-(5, 'pounds', 'sdsldksl', 2 ), (3, 'tbsps', 'lskdsld', 2), (0.33, 'cups', 'sldks', 2), (2, 'tsp', 'sldks', 2), (7, 'oz', 'lskdsl', 2), (8, '', 'kslds', 2), (9, 'g', 'sldksldks', 2), (10, 'slices', 'dsldksl', 2),
-(5, 'pounds', 'sdsldksl', 3 ), (3, 'tbsps', 'lskdsld', 3), (0.33, 'cups', 'sldks', 3), (2, 'tsp', 'sldks', 3), (7, 'oz', 'lskdsl', 3), (8, '', 'kslds', 3), (9, 'g', 'sldksldks', 3), (10, 'slices', 'dsldksl', 3),
-(5, 'pounds', 'sdsldksl', 4 ), (3, 'tbsps', 'lskdsld', 4), (0.33, 'cups', 'sldks', 4), (2, 'tsp', 'sldks', 4), (7, 'oz', 'lskdsl', 4), (8, '', 'kslds', 4), (9, 'g', 'sldksldks', 4), (10, 'slices', 'dsldksl', 4),
-(5, 'pounds', 'sdsldksl', 5 ), (3, 'tbsps', 'lskdsld', 5), (0.33, 'cups', 'sldks', 5), (2, 'tsp', 'sldks', 5), (7, 'oz', 'lskdsl', 5), (8, '', 'kslds', 5), (9, 'g', 'sldksldks', 5), (10, 'slices', 'dsldksl', 5),
-(5, 'pounds', 'sdsldksl', 6 ), (3, 'tbsps', 'lskdsld', 6), (0.33, 'cups', 'sldks', 6), (2, 'tsp', 'sldks', 6), (7, 'oz', 'lskdsl', 6), (8, '', 'kslds', 6), (9, 'g', 'sldksldks', 6), (10, 'slices', 'dsldksl', 6),
-(5, 'pounds', 'sdsldksl', 7 ), (3, 'tbsps', 'lskdsld', 7), (0.33, 'cups', 'sldks', 7), (2, 'tsp', 'sldks', 7), (7, 'oz', 'lskdsl', 7), (8, '', 'kslds', 7), (9, 'g', 'sldksldks', 7), (10, 'slices', 'dsldksl', 7),
-(5, 'pounds', 'sdsldksl', 8 ), (3, 'tbsps', 'lskdsld', 8), (0.33, 'cups', 'sldks', 8), (2, 'tsp', 'sldks', 8), (7, 'oz', 'lskdsl', 8), (8, '', 'kslds', 8), (9, 'g', 'sldksldks', 8), (10, 'slices', 'dsldksl', 8),
-(5, 'pounds', 'sdsldksl', 9 ), (3, 'tbsps', 'lskdsld', 9), (0.33, 'cups', 'sldks', 9), (2, 'tsp', 'sldks', 9), (7, 'oz', 'lskdsl', 9), (8, '', 'kslds', 9), (9, 'g', 'sldksldks', 9), (10, 'slices', 'dsldksl', 9),
-(5, 'pounds', 'sdsldksl', 10 ), (3, 'tbsps', 'lskdsld', 10), (0.33, 'cups', 'sldks', 10), (2, 'tsp', 'sldks', 10), (7, 'oz', 'lskdsl', 10), (8, '', 'kslds', 10), (9, 'g', 'sldksldks', 10), (10, 'slices', 'dsldksl', 10),
-(5, 'pounds', 'sdsldksl', 11 ), (3, 'tbsps', 'lskdsld', 11), (0.33, 'cups', 'sldks', 11), (2, 'tsp', 'sldks', 11), (7, 'oz', 'lskdsl', 11), (8, '', 'kslds', 11), (9, 'g', 'sldksldks', 11), (10, 'slices', 'dsldksl', 11),
-(5, 'pounds', 'sdsldksl', 12 ), (3, 'tbsps', 'lskdsld', 12), (0.33, 'cups', 'sldks', 12), (2, 'tsp', 'sldks', 12), (7, 'oz', 'lskdsl', 12), (8, '', 'kslds', 12), (9, 'g', 'sldksldks', 12), (10, 'slices', 'dsldksl', 12),
-(5, 'pounds', 'sdsldksl', 13 ), (3, 'tbsps', 'lskdsld', 13), (0.33, 'cups', 'sldks', 13), (2, 'tsp', 'sldks', 13), (7, 'oz', 'lskdsl', 13), (8, '', 'kslds', 13), (9, 'g', 'sldksldks', 13), (10, 'slices', 'dsldksl', 13),
-(5, 'pounds', 'sdsldksl', 14 ), (3, 'tbsps', 'lskdsld', 14), (0.33, 'cups', 'sldks', 14), (2, 'tsp', 'sldks', 14), (7, 'oz', 'lskdsl', 14), (8, '', 'kslds', 14), (9, 'g', 'sldksldks', 14), (10, 'slices', 'dsldksl', 14),
-(5, 'pounds', 'sdsldksl', 15 ), (3, 'tbsps', 'lskdsld', 15), (0.33, 'cups', 'sldks', 15), (2, 'tsp', 'sldks', 15), (7, 'oz', 'lskdsl', 15), (8, '', 'kslds', 15), (9, 'g', 'sldksldks', 15), (10, 'slices', 'dsldksl', 15),
-(5, 'pounds', 'sdsldksl', 16 ), (3, 'tbsps', 'lskdsld', 16), (0.33, 'cups', 'sldks', 16), (2, 'tsp', 'sldks', 16), (7, 'oz', 'lskdsl', 16), (8, '', 'kslds', 16), (9, 'g', 'sldksldks', 16), (10, 'slices', 'dsldksl', 16),
-(5, 'pounds', 'sdsldksl', 17 ), (3, 'tbsps', 'lskdsld', 17), (0.33, 'cups', 'sldks', 17), (2, 'tsp', 'sldks', 17), (7, 'oz', 'lskdsl', 17), (8, '', 'kslds', 17), (9, 'g', 'sldksldks', 17), (10, 'slices', 'dsldksl', 17),
-(5, 'pounds', 'sdsldksl', 18 ), (3, 'tbsps', 'lskdsld', 18), (0.33, 'cups', 'sldks', 18), (2, 'tsp', 'sldks', 18), (7, 'oz', 'lskdsl', 18), (8, '', 'kslds', 18), (9, 'g', 'sldksldks', 18), (10, 'slices', 'dsldksl', 18),
-(5, 'pounds', 'sdsldksl', 19 ), (3, 'tbsps', 'lskdsld', 19), (0.33, 'cups', 'sldks', 19), (2, 'tsp', 'sldks', 19), (7, 'oz', 'lskdsl', 19), (8, '', 'kslds', 19), (9, 'g', 'sldksldks', 19), (10, 'slices', 'dsldksl', 19),
-(5, 'pounds', 'sdsldksl', 20), (3, 'tbsps', 'lskdsld', 20), (0.33, 'cups', 'sldks', 20), (2, 'tsp', 'sldks', 20), (7, 'oz', 'lskdsl', 20), (8, '', 'kslds', 20), (9, 'g', 'sldksldks', 20), (10, 'slices', 'dsldksl', 20),
-(5, 'pounds', 'sdsldksl', 21), (3, 'tbsps', 'lskdsld', 21), (0.33, 'cups', 'sldks', 21), (2, 'tsp', 'sldks', 21), (7, 'oz', 'lskdsl', 21), (8, '', 'kslds', 21), (9, 'g', 'sldksldks', 21), (10, 'slices', 'dsldksl', 21),
-(5, 'pounds', 'sdsldksl', 22 ), (3, 'tbsps', 'lskdsld', 22), (0.33, 'cups', 'sldks', 22), (2, 'tsp', 'sldks', 22), (7, 'oz', 'lskdsl', 22), (8, '', 'kslds', 22), (9, 'g', 'sldksldks', 22), (10, 'slices', 'dsldksl', 22),
-(5, 'pounds', 'sdsldksl', 23), (3, 'tbsps', 'lskdsld', 23), (0.33, 'cups', 'sldks', 23), (2, 'tsp', 'sldks', 23), (7, 'oz', 'lskdsl', 23), (8, '', 'kslds', 23), (9, 'g', 'sldksldks', 23), (10, 'slices', 'dsldksl', 23),
-(5, 'pounds', 'sdsldksl', 24), (3, 'tbsps', 'lskdsld', 24), (0.33, 'cups', 'sldks', 24), (2, 'tsp', 'sldks', 24), (7, 'oz', 'lskdsl', 24), (8, '', 'kslds', 24), (9, 'g', 'sldksldks', 24), (10, 'slices', 'dsldksl', 24),
-(5, 'pounds', 'sdsldksl', 25), (3, 'tbsps', 'lskdsld', 25), (0.33, 'cups', 'sldks', 25), (2, 'tsp', 'sldks', 25), (7, 'oz', 'lskdsl', 25), (8, '', 'kslds', 25), (9, 'g', 'sldksldks', 25), (10, 'slices', 'dsldksl', 25),
-(5, 'pounds', 'sdsldksl', 26), (3, 'tbsps', 'lskdsld', 26), (0.33, 'cups', 'sldks', 26), (2, 'tsp', 'sldks', 26), (7, 'oz', 'lskdsl', 26), (8, '', 'kslds', 26), (9, 'g', 'sldksldks', 26), (10, 'slices', 'dsldksl', 26),
-(5, 'pounds', 'sdsldksl', 27), (3, 'tbsps', 'lskdsld', 27), (0.33, 'cups', 'sldks', 27), (2, 'tsp', 'sldks', 27), (7, 'oz', 'lskdsl', 27), (8, '', 'kslds', 27), (9, 'g', 'sldksldks', 27), (10, 'slices', 'dsldksl', 27),
-(5, 'pounds', 'sdsldksl', 28), (3, 'tbsps', 'lskdsld', 28), (0.33, 'cups', 'sldks', 28), (2, 'tsp', 'sldks', 28), (7, 'oz', 'lskdsl', 28), (8, '', 'kslds', 28), (9, 'g', 'sldksldks', 28), (10, 'slices', 'dsldksl', 28),
-(5, 'pounds', 'sdsldksl', 29), (3, 'tbsps', 'lskdsld', 29), (0.33, 'cups', 'sldks', 29), (2, 'tsp', 'sldks', 29), (7, 'oz', 'lskdsl', 29), (8, '', 'kslds', 29), (9, 'g', 'sldksldks', 29), (10, 'slices', 'dsldksl', 29),
-(5, 'pounds', 'sdsldksl', 30), (3, 'tbsps', 'lskdsld', 30), (0.33, 'cups', 'sldks', 30), (2, 'tsp', 'sldks', 30), (7, 'oz', 'lskdsl', 30), (8, '', 'kslds', 30), (9, 'g', 'sldksldks', 30), (10, 'slices', 'dsldksl', 30);
+(5, 'pounds', 'sdsldksl', 1 ), (3, 'tbsps', 'lskdsld', 1), (0.33, 'cups', 'sldks', 1), (1, 'tsp', 'sldks', 1), (7, 'oz', 'lskdsl', 1), (8, '', 'kslds', 1), (9, 'g', 'sldksldks', 1), (10, 'slices', 'dsldksl', 1),
+(6, 'pounds', 'sdsldksl', 2 ), (2, 'tbsps', 'lskdsld', 2), (0.3, 'cups', 'sldks', 2), (2, 'tsp', 'sldks', 2), (7, 'oz', 'lskdsl', 2), (8, '', 'kslds', 2), (9, 'g', 'sldksldks', 2), (10, 'slices', 'dsldksl', 2),
+(7, 'pounds', 'sdsldksl', 3 ), (4, 'tbsps', 'lskdsld', 3), (2, 'cups', 'sldks', 3), (3, 'tsp', 'sldks', 3), (7, 'oz', 'lskdsl', 3), (8, '', 'kslds', 3), (9, 'g', 'sldksldks', 3), (10, 'slices', 'dsldksl', 3),
+(8, 'pounds', 'sdsldksl', 4 ), (5, 'tbsps', 'lskdsld', 4), (0.33, 'cups', 'sldks', 4), (4, 'tsp', 'sldks', 4), (7, 'oz', 'lskdsl', 4), (8, '', 'kslds', 4), (9, 'g', 'sldksldks', 4), (10, 'slices', 'dsldksl', 4),
+(9, 'pounds', 'sdsldksl', 5 ), (3, 'tbsps', 'lskdsld', 5), (2, 'cups', 'sldks', 5), (5, 'tsp', 'sldks', 5), (7, 'oz', 'lskdsl', 5), (8, '', 'kslds', 5), (9, 'g', 'sldksldks', 5), (10, 'slices', 'dsldksl', 5),
+(2, 'pounds', 'sdsldksl', 6 ), (2, 'tbsps', 'lskdsld', 6), (3, 'cups', 'sldks', 6), (1, 'tsp', 'sldks', 6), (7, 'oz', 'lskdsl', 6), (8, '', 'kslds', 6), (9, 'g', 'sldksldks', 6), (10, 'slices', 'dsldksl', 6),
+(3, 'pounds', 'sdsldksl', 7 ), (4, 'tbsps', 'lskdsld', 7), (0.7, 'cups', 'sldks', 7), (2, 'tsp', 'sldks', 7), (7, 'oz', 'lskdsl', 7), (8, '', 'kslds', 7), (9, 'g', 'sldksldks', 7), (10, 'slices', 'dsldksl', 7),
+(4, 'pounds', 'sdsldksl', 8 ), (5, 'tbsps', 'lskdsld', 8), (0.5, 'cups', 'sldks', 8), (3, 'tsp', 'sldks', 8), (7, 'oz', 'lskdsl', 8), (8, '', 'kslds', 8), (9, 'g', 'sldksldks', 8), (10, 'slices', 'dsldksl', 8),
+(5, 'pounds', 'sdsldksl', 9 ), (6, 'tbsps', 'lskdsld', 9), (0.33, 'cups', 'sldks', 9), (4, 'tsp', 'sldks', 9), (7, 'oz', 'lskdsl', 9), (8, '', 'kslds', 9), (9, 'g', 'sldksldks', 9), (10, 'slices', 'dsldksl', 9),
+(6, 'pounds', 'sdsldksl', 10 ), (3, 'tbsps', 'lskdsld', 10), (2, 'cups', 'sldks', 10), (5, 'tsp', 'sldks', 10), (7, 'oz', 'lskdsl', 10), (8, '', 'kslds', 10), (9, 'g', 'sldksldks', 10), (10, 'slices', 'dsldksl', 10),
+(7, 'pounds', 'sdsldksl', 11 ), (4, 'tbsps', 'lskdsld', 11), (0.33, 'cups', 'sldks', 11), (4, 'tsp', 'sldks', 11), (7, 'oz', 'lskdsl', 11), (8, '', 'kslds', 11), (9, 'g', 'sldksldks', 11), (10, 'slices', 'dsldksl', 11),
+(8, 'pounds', 'sdsldksl', 12 ), (5, 'tbsps', 'lskdsld', 12), (3, 'cups', 'sldks', 12), (3, 'tsp', 'sldks', 12), (7, 'oz', 'lskdsl', 12), (8, '', 'kslds', 12), (9, 'g', 'sldksldks', 12), (10, 'slices', 'dsldksl', 12),
+(9, 'pounds', 'sdsldksl', 13 ), (2, 'tbsps', 'lskdsld', 13), (1.5, 'cups', 'sldks', 13), (2, 'tsp', 'sldks', 13), (7, 'oz', 'lskdsl', 13), (8, '', 'kslds', 13), (9, 'g', 'sldksldks', 13), (10, 'slices', 'dsldksl', 13),
+(5, 'pounds', 'sdsldksl', 14 ), (3, 'tbsps', 'lskdsld', 14), (3, 'cups', 'sldks', 14), (1, 'tsp', 'sldks', 14), (7, 'oz', 'lskdsl', 14), (8, '', 'kslds', 14), (9, 'g', 'sldksldks', 14), (10, 'slices', 'dsldksl', 14),
+(4, 'pounds', 'sdsldksl', 15 ), (4, 'tbsps', 'lskdsld', 15), (0.5, 'cups', 'sldks', 15), (2, 'tsp', 'sldks', 15), (7, 'oz', 'lskdsl', 15), (8, '', 'kslds', 15), (9, 'g', 'sldksldks', 15), (10, 'slices', 'dsldksl', 15),
+(3, 'pounds', 'sdsldksl', 16 ), (5, 'tbsps', 'lskdsld', 16), (2, 'cups', 'sldks', 16), (3, 'tsp', 'sldks', 16), (7, 'oz', 'lskdsl', 16), (8, '', 'kslds', 16), (9, 'g', 'sldksldks', 16), (10, 'slices', 'dsldksl', 16),
+(2, 'pounds', 'sdsldksl', 17 ), (2, 'tbsps', 'lskdsld', 17), (2.5, 'cups', 'sldks', 17), (4, 'tsp', 'sldks', 17), (7, 'oz', 'lskdsl', 17), (8, '', 'kslds', 17), (9, 'g', 'sldksldks', 17), (10, 'slices', 'dsldksl', 17),
+(5, 'pounds', 'sdsldksl', 18 ), (3, 'tbsps', 'lskdsld', 18), (3.5, 'cups', 'sldks', 18), (5, 'tsp', 'sldks', 18), (7, 'oz', 'lskdsl', 18), (8, '', 'kslds', 18), (9, 'g', 'sldksldks', 18), (10, 'slices', 'dsldksl', 18),
+(4, 'pounds', 'sdsldksl', 19 ), (4, 'tbsps', 'lskdsld', 19), (0.33, 'cups', 'sldks', 19), (4, 'tsp', 'sldks', 19), (7, 'oz', 'lskdsl', 19), (8, '', 'kslds', 19), (9, 'g', 'sldksldks', 19), (10, 'slices', 'dsldksl', 19),
+(3, 'pounds', 'sdsldksl', 20), (5, 'tbsps', 'lskdsld', 20), (0.5, 'cups', 'sldks', 20), (3, 'tsp', 'sldks', 20), (7, 'oz', 'lskdsl', 20), (8, '', 'kslds', 20), (9, 'g', 'sldksldks', 20), (10, 'slices', 'dsldksl', 20),
+(2, 'pounds', 'sdsldksl', 21), (7, 'tbsps', 'lskdsld', 21), (1.5, 'cups', 'sldks', 21), (2, 'tsp', 'sldks', 21), (7, 'oz', 'lskdsl', 21), (8, '', 'kslds', 21), (9, 'g', 'sldksldks', 21), (10, 'slices', 'dsldksl', 21),
+(5, 'pounds', 'sdsldksl', 22 ), (3, 'tbsps', 'lskdsld', 22), (2, 'cups', 'sldks', 22), (1, 'tsp', 'sldks', 22), (7, 'oz', 'lskdsl', 22), (8, '', 'kslds', 22), (9, 'g', 'sldksldks', 22), (10, 'slices', 'dsldksl', 22),
+(4, 'pounds', 'sdsldksl', 23), (2, 'tbsps', 'lskdsld', 23), (2.5, 'cups', 'sldks', 23), (2, 'tsp', 'sldks', 23), (7, 'oz', 'lskdsl', 23), (8, '', 'kslds', 23), (9, 'g', 'sldksldks', 23), (10, 'slices', 'dsldksl', 23),
+(3, 'pounds', 'sdsldksl', 24), (4, 'tbsps', 'lskdsld', 24), (3, 'cups', 'sldks', 24), (3, 'tsp', 'sldks', 24), (7, 'oz', 'lskdsl', 24), (8, '', 'kslds', 24), (9, 'g', 'sldksldks', 24), (10, 'slices', 'dsldksl', 24),
+(2, 'pounds', 'sdsldksl', 25), (5, 'tbsps', 'lskdsld', 25), (0.33, 'cups', 'sldks', 25), (4, 'tsp', 'sldks', 25), (7, 'oz', 'lskdsl', 25), (8, '', 'kslds', 25), (9, 'g', 'sldksldks', 25), (10, 'slices', 'dsldksl', 25),
+(5, 'pounds', 'sdsldksl', 26), (3, 'tbsps', 'lskdsld', 26), (0.5, 'cups', 'sldks', 26), (5, 'tsp', 'sldks', 26), (7, 'oz', 'lskdsl', 26), (8, '', 'kslds', 26), (9, 'g', 'sldksldks', 26), (10, 'slices', 'dsldksl', 26),
+(4, 'pounds', 'sdsldksl', 27), (2, 'tbsps', 'lskdsld', 27), (1.5, 'cups', 'sldks', 27), (2, 'tsp', 'sldks', 27), (7, 'oz', 'lskdsl', 27), (8, '', 'kslds', 27), (9, 'g', 'sldksldks', 27), (10, 'slices', 'dsldksl', 27),
+(3, 'pounds', 'sdsldksl', 28), (4, 'tbsps', 'lskdsld', 28), (2, 'cups', 'sldks', 28), (3, 'tsp', 'sldks', 28), (7, 'oz', 'lskdsl', 28), (8, '', 'kslds', 28), (9, 'g', 'sldksldks', 28), (10, 'slices', 'dsldksl', 28),
+(2, 'pounds', 'sdsldksl', 29), (5, 'tbsps', 'lskdsld', 29), (0.7, 'cups', 'sldks', 29), (4, 'tsp', 'sldks', 29), (7, 'oz', 'lskdsl', 29), (8, '', 'kslds', 29), (9, 'g', 'sldksldks', 29), (10, 'slices', 'dsldksl', 29),
+(5, 'pounds', 'sdsldksl', 30), (3, 'tbsps', 'lskdsld', 30), (2, 'cups', 'sldks', 30), (5, 'tsp', 'sldks', 30), (7, 'oz', 'lskdsl', 30), (8, '', 'kslds', 30), (9, 'g', 'sldksldks', 30), (10, 'slices', 'dsldksl', 30);
 
 DROP TABLE IF EXISTS `review`;
 
